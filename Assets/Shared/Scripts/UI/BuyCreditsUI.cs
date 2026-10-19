@@ -18,7 +18,7 @@ namespace Shared.UI
         [Header("Required")]
         [SerializeField] private CreditRequestManager requestManager;
         [SerializeField] private Button openButton;
-        [SerializeField] private GameObject panel;
+        [SerializeField] private GameObject buyCreditsPanel;
         [SerializeField] private Button closeButton;
         [SerializeField] private Button confirmButton;
         [SerializeField] private Button packageButtonPrefab;
@@ -40,11 +40,11 @@ namespace Shared.UI
         private string selectedId;
         private bool isReady;
 
-        public bool IsOpen => panel != null && panel.activeSelf;
+        public bool IsOpen => buyCreditsPanel != null && buyCreditsPanel.activeSelf;
 
         private void Awake()
         {
-            if (requestManager == null || openButton == null || panel == null || closeButton == null ||
+            if (requestManager == null || openButton == null || buyCreditsPanel == null || closeButton == null ||
                 confirmButton == null || packageButtonPrefab == null || packageContainer == null ||
                 selectedText == null || infoText == null)
             {
@@ -64,7 +64,7 @@ namespace Shared.UI
             confirmButton.onClick.RemoveAllListeners();
             confirmButton.onClick.AddListener(HandleConfirm);
 
-            panel.SetActive(false);
+            buyCreditsPanel.SetActive(false);
             isReady = true;
         }
 
@@ -102,14 +102,14 @@ namespace Shared.UI
                 ? $"Pick a package. You have {requestManager.PendingCount} pending request(s)."
                 : "Pick a package.", false);
 
-            panel.SetActive(true);
+            buyCreditsPanel.SetActive(true);
         }
 
         public void Close()
         {
             if (!isReady || !IsOpen) return;
             Click();
-            panel.SetActive(false);
+            buyCreditsPanel.SetActive(false);
         }
 
         private void Select(string packageId)
